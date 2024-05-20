@@ -1,0 +1,23 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: store-external-web
+  namespace: web
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: https-ext-gtw
+    namespace: infra
+  hostnames:
+  - "store.example.com"
+  rules:
+  - backendRefs:
+    - name: web-v1-svc
+      port: 8080
+  - matches:
+    - headers:
+      - name: env
+        value: canary
+    backendRefs:
+    - name: web-v2-svc
+      port: 8080

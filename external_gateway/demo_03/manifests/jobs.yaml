@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: jobs
+  name: jobs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jobs
+  template:
+    metadata:
+      labels:
+        app: jobs
+    spec:
+      containers:
+      - name: whereami
+        image: us-docker.pkg.dev/google-samples/containers/gke/whereami:v1.2.11
+        ports:
+          - containerPort: 8080
+        env:
+        - name: METADATA
+          value: "jobs"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobs-svc
+  namespace: jobs
+spec:
+  selector:
+    app: jobs
+  ports:
+  - port: 8080
+    targetPort: 8080

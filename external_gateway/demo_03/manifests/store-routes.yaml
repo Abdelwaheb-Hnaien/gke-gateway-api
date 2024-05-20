@@ -1,0 +1,20 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: store-external
+  namespace: store
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: https-ext-gtw
+    namespace: infra
+  hostnames:
+  - "store.example.com"
+  rules:
+  - matches:
+    - path:
+        value: /
+    backendRefs:
+    - name: store-svc
+      port: 8080
+      # namespace: mobile

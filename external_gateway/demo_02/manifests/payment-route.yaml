@@ -1,0 +1,20 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: store-external-payment
+  namespace: payment # change this to "api" later and set namespace in rules[].backendRefs
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: https-ext-gtw
+    namespace: infra
+  hostnames:
+  - "store.example.com"
+  rules:
+  - matches:
+    - path:
+        value: /checkout
+    backendRefs:
+    - name: payment-svc
+      port: 8080
+      # namespace: payment
