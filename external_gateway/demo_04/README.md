@@ -1,4 +1,4 @@
-# GKE Gateway Demo: Blue Green Deployment
+# GKE Gateway Demo: Traffic splitting
 
 # Overview
 
