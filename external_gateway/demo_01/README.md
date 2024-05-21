@@ -4,7 +4,7 @@
 
 ![](gke-gateway-api-demo-01.png)
 
-GatewayClass "gke-l7-gxlb" will deploy a Global external HTTP(S) load balancer.
+GatewayClass "gke-l7-global-external-managed" will deploy a Global external Application Load Balancer.
 
 # Steps
 
